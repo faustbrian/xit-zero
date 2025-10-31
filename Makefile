@@ -61,38 +61,38 @@ clean-builds:
 # Release Management
 release-patch:
 	@CURRENT=$$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "1.0.0"); \
-	NEW=$$(echo $$CURRENT | awk -F. '{print $$1"."$$2"."$$3+1}'); \
+	NEW=$$(echo "$$CURRENT" | awk -F. '{print $$1"."$$2"."$$3+1}'); \
 	echo "Bumping $$CURRENT → $$NEW"; \
 	git add -A; \
 	git commit -m "chore: release $$NEW" || true; \
 	git push origin main; \
-	git tag -a $$NEW -m "Release $$NEW"; \
-	git push origin $$NEW; \
-	gh release create $$NEW --generate-notes; \
+	git tag -a "$$NEW" -m "Release $$NEW"; \
+	git push origin "$$NEW"; \
+	gh release create "$$NEW" --generate-notes; \
 	echo "Released $$NEW"
 
 release-minor:
 	@CURRENT=$$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "1.0.0"); \
-	NEW=$$(echo $$CURRENT | awk -F. '{print $$1"."$$2+1".0"}'); \
+	NEW=$$(echo "$$CURRENT" | awk -F. '{print $$1"."$$2+1".0"}'); \
 	echo "Bumping $$CURRENT → $$NEW"; \
 	git add -A; \
 	git commit -m "chore: release $$NEW" || true; \
 	git push origin main; \
-	git tag -a $$NEW -m "Release $$NEW"; \
-	git push origin $$NEW; \
-	gh release create $$NEW --generate-notes; \
+	git tag -a "$$NEW" -m "Release $$NEW"; \
+	git push origin "$$NEW"; \
+	gh release create "$$NEW" --generate-notes; \
 	echo "Released $$NEW"
 
 release-major:
 	@CURRENT=$$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "1.0.0"); \
-	NEW=$$(echo $$CURRENT | awk -F. '{print $$1+1".0.0"}'); \
+	NEW=$$(echo "$$CURRENT" | awk -F. '{print $$1+1".0.0"}'); \
 	echo "Bumping $$CURRENT → $$NEW"; \
 	git add -A; \
 	git commit -m "chore: release $$NEW" || true; \
 	git push origin main; \
-	git tag -a $$NEW -m "Release $$NEW"; \
-	git push origin $$NEW; \
-	gh release create $$NEW --generate-notes; \
+	git tag -a "$$NEW" -m "Release $$NEW"; \
+	git push origin "$$NEW"; \
+	gh release create "$$NEW" --generate-notes; \
 	echo "Released $$NEW"
 
 .PHONY: docker-build build phar binary binary-mac binary-linux binary-windows \
